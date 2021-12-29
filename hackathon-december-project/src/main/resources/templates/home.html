@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+	
+<title>Home Page</title>
+
+
+	
+	<style>
+		body{
+		    background-color: #f8f9fa!important
+		}
+		.p-4 {
+		    padding: 1.5rem!important;
+		}
+		.mb-0, .my-0 {
+		    margin-bottom: 0!important;
+		}
+		.shadow-sm {
+		    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+		}    
+		
+		/* user-dashboard-info-box */
+		.user-dashboard-info-box .candidates-list .thumb {
+		    margin-right: 20px;
+		}
+		.user-dashboard-info-box .candidates-list .thumb img {
+		    width: 80px;
+		    height: 80px;
+		    -o-object-fit: cover;
+		    object-fit: cover;
+		    overflow: hidden;
+		    border-radius: 50%;
+		}
+		
+		.user-dashboard-info-box .title {
+		    display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: flex;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    align-items: center;
+		    padding: 30px 0;
+		}
+		
+		.user-dashboard-info-box .candidates-list td {
+		    vertical-align: middle;
+		}
+		
+		.user-dashboard-info-box td li {
+		    margin: 0 4px;
+		}
+		
+		.user-dashboard-info-box .table thead th {
+		    border-bottom: none;
+		}
+		
+		.table.manage-candidates-top th {
+		    border: 0;
+		}
+		
+		.user-dashboard-info-box .candidate-list-favourite-time .candidate-list-favourite {
+		    margin-bottom: 10px;
+		}
+		
+		.table.manage-candidates-top {
+		    min-width: 650px;
+		}
+		
+		.user-dashboard-info-box .candidate-list-details ul {
+		    color: #969696;
+		}
+		
+		/* Candidate List */
+		.candidate-list {
+		    background: #ffffff;
+		    display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: flex;
+		    border-bottom: 1px solid #eeeeee;
+		    -webkit-box-align: center;
+		    -ms-flex-align: center;
+		    align-items: center;
+		    padding: 20px;
+		    -webkit-transition: all 0.3s ease-in-out;
+		    transition: all 0.3s ease-in-out;
+		}
+		.candidate-list:hover {
+		    -webkit-box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+		    box-shadow: 0px 0px 34px 4px rgba(33, 37, 41, 0.06);
+		    position: relative;
+		    z-index: 99;
+		}
+		.candidate-list:hover a.candidate-list-favourite {
+		    color: #e74c3c;
+		    -webkit-box-shadow: -1px 4px 10px 1px rgba(24, 111, 201, 0.1);
+		    box-shadow: -1px 4px 10px 1px rgba(24, 111, 201, 0.1);
+		}
+		
+		.candidate-list .candidate-list-image {
+		    margin-right: 25px;
+		    -webkit-box-flex: 0;
+		    -ms-flex: 0 0 80px;
+		    flex: 0 0 80px;
+		    border: none;
+		}
+		.candidate-list .candidate-list-image img {
+		    width: 80px;
+		    height: 80px;
+		    -o-object-fit: cover;
+		    object-fit: cover;
+		}
+		
+		.candidate-list-title {
+		    margin-bottom: 5px;
+		}
+		
+		.candidate-list-details ul {
+		    display: -webkit-box;
+		    display: -ms-flexbox;
+		    display: flex;
+		    -ms-flex-wrap: wrap;
+		    flex-wrap: wrap;
+		    margin-bottom: 0px;
+		}
+		.candidate-list-details ul li {
+		    margin: 5px 10px 5px 0px;
+		    font-size: 13px;
+		}
+		
+		.candidate-list .candidate-list-favourite-time {
+		    margin-left: auto;
+		    text-align: center;
+		    font-size: 13px;
+		    -webkit-box-flex: 0;
+		    -ms-flex: 0 0 90px;
+		    flex: 0 0 90px;
+		}
+		.candidate-list .candidate-list-favourite-time span {
+		    display: block;
+		    margin: 0 auto;
+		}
+		.candidate-list .candidate-list-favourite-time .candidate-list-favourite {
+		    display: inline-block;
+		    position: relative;
+		    height: 40px;
+		    width: 40px;
+		    line-height: 40px;
+		    border: 1px solid #eeeeee;
+		    border-radius: 100%;
+		    text-align: center;
+		    -webkit-transition: all 0.3s ease-in-out;
+		    transition: all 0.3s ease-in-out;
+		    margin-bottom: 20px;
+		    font-size: 16px;
+		    color: #646f79;
+		}
+		.candidate-list .candidate-list-favourite-time .candidate-list-favourite:hover {
+		    background: #ffffff;
+		    color: #e74c3c;
+		}
+		
+		.candidate-banner .candidate-list:hover {
+		    position: inherit;
+		    -webkit-box-shadow: inherit;
+		    box-shadow: inherit;
+		    z-index: inherit;
+		}
+		
+		.bg-white {
+		    background-color: #ffffff !important;
+		}
+		.p-4 {
+		    padding: 1.5rem!important;
+		}
+		.mb-0, .my-0 {
+		    margin-bottom: 0!important;
+		}
+		.shadow-sm {
+		    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+		}
+		
+		.user-dashboard-info-box .candidates-list .thumb {
+		    margin-right: 20px;
+		}
+		
+		.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl{
+			margin-right:0rem;
+		}
+		i{
+			padding-right:1rem;
+		}
+		
+		
+	</style>
+
+</head>
+<body>
+
+	
+	
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)">Employee Management</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="nav navbar-nav me-auto">
+        
+        					<li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+        					<li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/addemployee}">Add Employee</a></li>
+        					<li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/removeallemplyees}">Delete All</a></li>
+
+
+      </ul>
+      
+    </div>
+  </div>
+</nav>
+	
+	
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+<div class="container mt-3 mb-4">
+
+
+<div class="col-lg-9 mt-4 mt-lg-0">
+        <h1 style="text-align: center;padding-bottom:2rem;padding-top:2rem;">Employees Data</h1>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+
+          <table class="table manage-candidates-top mb-0 justify-content-left">
+            <thead>
+              <tr>
+              
+                <th class="text-start">Employee</th>
+                <th class="text-start">Employee Name</th>
+                <th class="text-start">Email</th>
+                <th class="action text-start">Edit</th>
+			    <th class="action text-start">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+            		
+              <tr class="candidates-list" th:each="employee : ${listEmployees}">
+                
+                <td class="title">
+	                  <div class="thumb">
+	                    <img class="img-fluid" src="data:image/png;base64,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" alt="">
+	                  </div>
+            		</td>
+                <td>
+                  <div class="candidate-list-details">
+                    <div class="candidate-list-info">
+                      <div class="candidate-list-title">
+                        <h5 class="mb-0"> <span th:text="${employee.firstName}"></span> <span th:text="${employee.lastName}"></span><a href="#"></a></h5>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </td>
+                <td class="candidate-list-favourite-time text-start">
+                  <span class="candidate-list-time order-1" th:text="${employee.email}">tushargupta.cse19@chitkarauniversity.edu.in</span>
+                </td>
+                <td class="text-start">
+                  <ul class="list-unstyled mb-0 d-flex">
+                    <li><a th:href="@{/updateemployee/{id}(id=${employee.id})}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                  </ul>
+                </td>
+                
+                <td class="text-start">
+                  <ul class="list-unstyled mb-0 d-flex">
+                    <li><a th:href="@{/deleteemployee/{id}(id=${employee.id})}" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+
+</body>
+</html>
